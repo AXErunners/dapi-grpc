@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package org.dash.platform.dapi;
+package org.axe.platform.dapi;
 
 service TransactionsFilterStream {
   rpc GetTransactionsByFilter (BloomFilter) returns (stream TransactionFilterResponse);
