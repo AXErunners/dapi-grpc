@@ -1,16 +1,18 @@
 {
   "name": "@axerunners/dapi-grpc",
-  "version": "0.5.1",
+  "version": "0.16.0-dev.3",
   "description": "DAPI GRPC definition file and generated clients",
-  "browser": "tx-filter-stream/web/tx_filter_stream_grpc_web_pb",
-  "main": "tx-filter-stream/node/index.js",
+  "browser": "browser.js",
+  "main": "node.js",
   "scripts": {
     "build": "scripts/build.sh",
     "lint": "eslint .",
     "check-package": "npm run check-package:name && npm run check-package:version",
     "check-package:name": "test $(jq -r .name package.json) = $(jq -r .name package-lock.json)",
     "check-package:version": "test $(jq -r .version package.json) = $(jq -r .version package-lock.json)",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "npm run test:unit",
+    "test:unit": "mocha './test/unit/**/*.spec.js'"
   },
   "repository": {
     "type": "git",
@@ -22,14 +24,22 @@
   },
   "homepage": "https://github.com/axerunners/dapi-grpc#readme",
   "dependencies": {
-    "@grpc/proto-loader": "^0.5.0",
-    "google-protobuf": "^3.7.1",
-    "grpc": "^1.19.0",
-    "grpc-web": "^1.0.4"
+    "@axerunners/grpc-common": "^0.3.0",
+    "google-protobuf": "^3.12.2",
+    "grpc": "^1.24.3",
+    "grpc-web": "^1.2.0",
+    "protobufjs": "github:jawid-h/protobuf.js#fix/buffer-conversion"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "dirty-chai": "^2.0.1",
     "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^2.17.2"
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-plugin-import": "^2.21.1",
+    "mocha": "^7.2.0",
+    "mocha-sinon": "^2.1.2",
+    "sinon": "^7.5.0",
+    "sinon-chai": "^3.5.0"
   }
 }
