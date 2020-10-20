@@ -1,13 +1,16 @@
 sudo: required
-dist: trusty
+dist: bionic
 language: node_js
 
 node_js:
  - '10'
+ - '12'
 
 branches:
   only:
     - master
+    - /^v(0|[1-9]\d*)\.(0|[1-9]\d*)$/
+    - /^v(0|[1-9]\d*)\.(0|[1-9]\d*)-dev$/
     - /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/
 
 services:
@@ -18,17 +21,18 @@ addons:
     packages:
       - docker-ce
 
-before_install:
-  # Add token for @axerunners private npm registry
-  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
-
 install: npm ci
 
 before_script: npm run build
 
 script:
   - npm run lint
+  - npm run test
   - npm run check-package
+
+before_deploy:
+  # Add token for @axerunners private npm registry
+  - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" > .npmrc
 
 deploy:
   provider: script
@@ -36,3 +40,4 @@ deploy:
   on:
     tags: true
     repo: axerunners/dapi-grpc
+  skip_cleanup: true
