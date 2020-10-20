@@ -1,2 +1,3 @@
-tx-filter-stream/web
-tx-filter-stream/node/tx_filter_stream_pb.js
+clients/*/v*/web/
+clients/*/v*/nodejs/*_protoc.js
+clients/*/v*/nodejs/*_pbjs.js
